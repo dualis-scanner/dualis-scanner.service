@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 import { UserHash } from "./db/types";
-import { authMockTable, userExists } from "./dbMock";
+import dbClient from "./db/dbClient";
 
 export function generateHash(): string {
     const symbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -14,24 +14,24 @@ export function generateHash(): string {
     return hash;
 }
 
-export function generateUserID(): string {
+export async function generateUserID(): Promise<string> {
+    const database = await dbClient();
     let uuid = randomUUID();
     
-    if (userExists(uuid)) {
-        uuid = generateUserID();
+    if (await database.userExists(uuid)) {
+        uuid = await generateUserID();
     }
 
     return uuid;
 }
 
-export function registerUser(): UserHash {
-    const userID = generateUserID();
+export async function registerUser(): Promise<UserHash> {
+    const database = await dbClient();
+
+    const userID = await generateUserID();
     const userHash = generateHash();
 
-    authMockTable.push({
-        userID,
-        encryptedCredentials: null
-    });
+    await database.addUser(userID);
 
     return {
         userID,
@@ -39,12 +39,12 @@ export function registerUser(): UserHash {
     };
 }
 
-export function updateUserCredentials(userID: string, encryptedCredentials: string, res: any) {
-    const userRecord = authMockTable.find(record => record.userID === userID);
-    if (!userRecord) {
+export async function updateUserCredentials(userID: string, encryptedCredentials: string, res: any) {
+    const database = await dbClient();
+    if (!await database.userExists(userID)) {
         res.status(400).send("Given user does not exist.");
         return;
     }
-    userRecord.encryptedCredentials = encryptedCredentials;
+    await database.updateUserCredentials(userID, encryptedCredentials);
     res.status(200).send("");
 }

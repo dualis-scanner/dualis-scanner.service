@@ -1,23 +1,23 @@
-import { generateUserID } from "./auth";
-import { AuthRecord, CacheItem, CacheRecord } from "./db/types";
+// import { generateUserID } from "./auth";
+// import { AuthRecord, Exam, CourseResult } from "./db/types";
 
-const authMockTable: AuthRecord[] = [
-    {
-        userID: "someUserID",
-        encryptedCredentials: "foo"
-    }
-];
+// const authMockTable: AuthRecord[] = [
+//     {
+//         userID: "someUserID",
+//         encryptedCredentials: "foo"
+//     }
+// ];
 
-const cacheMockTable: CacheRecord[] = [
-    {
-        lastModifiedAt: new Date(),
-        userID: "someUserID",
-        cachedItems: []
-    }
-]
+// const cacheMockTable: CourseResult[] = [
+//     {
+//         lastModifiedAt: new Date(),
+//         userID: "someUserID",
+//         cachedItems: []
+//     }
+// ]
 
-export function userExists(userID: string): boolean {
-    return authMockTable.find(record => record.userID === userID) != undefined;
-}
+// export function userExists(userID: string): boolean {
+//     return authMockTable.find(record => record.userID === userID) != undefined;
+// }
 
-export {authMockTable, cacheMockTable};
+// export {authMockTable, cacheMockTable};

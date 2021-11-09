@@ -1,29 +1,37 @@
-import { CacheRecord, UserHash } from "./db/types";
-import { authMockTable, cacheMockTable } from "./dbMock";
+import { CourseCache, CourseResult, UserHash } from "./db/types";
 import * as crypto from "crypto";
 import { exec } from "child_process";
+import dbClient from "./db/dbClient";
 
 export const CREDENTIAL_SPLITTER = "_+*CRED*+_";
 const CACHE_EXPIRE_TIME = 15;
 
-export function scan(userData: UserHash, res: any): void {
-    const encryptedCredentials = authMockTable.find(record => record.userID === userData.userID)?.encryptedCredentials;
-    if (!encryptedCredentials) {
+export async function scan(userData: UserHash, res: any): Promise<void> {
+    const database = await dbClient();
+
+    const authRecord = await database.getEncryptedCredentials(userData.userID);
+    if (!authRecord) {
         res.status(400).send("Given User does not exist.");
         return;
     }
 
     // Check if cache is still valid
-    const cachedData = cacheMockTable.find(record => record.userID === userData.userID);
-    if (!!cachedData && cachedData.cachedItems?.length > 0 && isCacheValid(cachedData)) {
+    const cachedData = await database.getCourseCacheFromUser(userData.userID);
+    // const cachedData = cacheMockTable.find(record => record.userID === userData.userID);
+    if (!!cachedData && isCacheValid(cachedData)) {
         res.status(200).send({
-            data: cachedData
+            data: cachedData.courses
         });
         return;
     }
 
     const { userHash: hash } = userData;
     
+    const { encryptedCredentials } = authRecord;
+    if (!encryptedCredentials) {
+        res.status(400).send("No user credentials maintained.");
+        return;
+    }
     const iv = Buffer.alloc(16);
     const key = Buffer.from(hash);
     const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
@@ -39,43 +47,35 @@ export function scan(userData: UserHash, res: any): void {
     });
 
     // Mock
-    const result: CacheRecord = {
-        cachedItems: [],
-        lastModifiedAt: new Date(),
-        userID: userData.userID
-    };
+    const results: CourseResult[] = [];
     if (!cachedData) {
         res.status(200).send({
-            data: result,
-            deltas: result
+            data: results,
+            deltas: results
         });
         return;
     }
 
-    const deltas = determineDeltas(result, cachedData);
+    const deltas = determineDeltas(results, cachedData);
     res.status(200).send({
-        data: result,
+        data: results,
         deltas
     });
 }
 
-function isCacheValid(cacheRecord: CacheRecord): boolean {
+function isCacheValid(cacheRecord: CourseCache): boolean {
     const delta = Date.now() - cacheRecord.lastModifiedAt.valueOf();
     return delta < CACHE_EXPIRE_TIME * 60 * 1000; // Mins to millis
 }
 
-export function determineDeltas(result: CacheRecord, cache: CacheRecord): CacheRecord | undefined {
-    const deltas: CacheRecord = {
-        userID: result.userID,
-        lastModifiedAt: new Date(),
-        cachedItems: []
-    };
+export function determineDeltas(results: CourseResult[], cache: CourseCache): CourseResult[] | undefined {
+    const deltas: CourseResult[] = [];
 
-    for(const item of result.cachedItems) {
-        if (!cache.cachedItems.find(record => record == item)) {
-            deltas.cachedItems.push(item);
+    for(const item of results) {
+        if (!cache.courses.find(record => record == item)) {
+            deltas.push(item);
         }
     }
 
-    return deltas.cachedItems.length > 0 ? deltas : undefined;
+    return deltas.length > 0 ? deltas : undefined;
 }

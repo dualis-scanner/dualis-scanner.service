@@ -1,7 +1,6 @@
 import express from "express";
 import { registerUser, updateUserCredentials } from "./auth";
 import bodyParser from "body-parser";
-import { authMockTable } from "./dbMock";
 import { UserHash } from "./db/types";
 import { scan } from "./scan";
 import dotenv from "dotenv";
@@ -16,23 +15,19 @@ app.use(bodyParser.json({
 
 app.get("/", (req, res) => res.send("Welcome in the Dualis-Scanner-Backend!"));
 
-app.post("/register", (req, res) => {
-    const authHash = registerUser();
+app.post("/register", async (req, res) => {
+    const authHash = await registerUser();
     res.status(201).send(authHash);
 });
 
-app.put("/updateCredentials", (req, res) => {
+app.put("/updateCredentials", async (req, res) => {
     const { userID, encryptedCredentials } = (req as any).body;
-    updateUserCredentials(userID, encryptedCredentials, res);
+    await updateUserCredentials(userID, encryptedCredentials, res);
 });
 
-app.get("/authTable", (req, res) => {
-    res.send(authMockTable);
-});
-
-app.get("/updateFromDualis", (req, res) => {
+app.get("/updateFromDualis", async (req, res) => {
     const userData: UserHash = req.body;
-    scan(userData, res);
+    await scan(userData, res);
 })
 
 app.listen(PORT, () => {
