@@ -3,7 +3,8 @@ import { AuthRecord, CourseCache, CourseResult } from "./types";
 import dotenv from "dotenv";
 dotenv.config();
 
-const dbURL = () => `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PWD}@${process.env.DB_URL}?retryWrites=true&writeConcern=majority`;
+const dbURL = () => `mongodb://${process.env.DB_URL}?retryWrites=true&writeConcern=majority`;
+// const dbURL = () => `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PWD}@${process.env.DB_URL}?retryWrites=true&writeConcern=majority`;
 let client: MongoClient | null = null;
 let database: Db | null = null;
 let COURSES: Collection<CourseCache> | null = null;
@@ -11,10 +12,9 @@ let CREDENTIALS: Collection<AuthRecord> | null = null;
 
 export default async function dbClient() {
     if (!client || !database || !COURSES || !CREDENTIALS) {
+        console.log(dbURL());
         client = new MongoClient(dbURL());
-        console.log("Before");
         await client.connect();
-        console.log("After");
         database = client.db(process.env.DB_NAME);
         COURSES = database.collection<CourseCache>("courses");
         CREDENTIALS = database.collection<AuthRecord>("credentials");
@@ -23,9 +23,13 @@ export default async function dbClient() {
     return {
         getEncryptedCredentials,
         getCourseCacheFromUser,
+        setCourseCacheFromUser,
         addUser,
         userExists,
-        updateUserCredentials
+        updateUserCredentials,
+        getUsers,
+        findNotEmptyCaches,
+        setWrongCredentialsFlag
     };
 }
 
@@ -39,6 +43,16 @@ const getCourseCacheFromUser = async (userID: string): Promise<CourseCache | nul
     const course = await COURSES?.findOne({userID});
     
     return course ?? null;
+}
+
+const setCourseCacheFromUser = async (cache: CourseCache) => {
+    const existingCache = await COURSES?.findOne({userID: cache.userID});
+    if (existingCache) {
+        const result = await COURSES?.replaceOne({userID: cache.userID}, cache);
+        return result?.modifiedCount === 1;
+    }
+    await COURSES?.insertOne(cache);
+    return true;
 }
 
 const addUser = async (userID: string): Promise<boolean> => {
@@ -56,6 +70,23 @@ const userExists = async (userID: string): Promise<boolean> => {
 }
 
 const updateUserCredentials = async (userID: string, encryptedCredentials: string): Promise<boolean> => {
-    const result = await CREDENTIALS?.updateOne({userID}, {encryptedCredentials});
+    const result = await CREDENTIALS?.updateOne({userID}, {$set: {encryptedCredentials, wrongCredentials: false}});
     return result?.modifiedCount === 1;
+}
+
+const getUsers = async () => {
+    const users = await CREDENTIALS?.find().toArray();
+    return users;
+}
+
+const findNotEmptyCaches = async (): Promise<CourseCache[]> => {
+    const caches = await COURSES?.find({courses: {$exists: true}}).toArray();
+    return caches ?? [];
+}
+
+const setWrongCredentialsFlag = async (userID: string) => {
+    const result = await CREDENTIALS?.updateOne({userID}, {$set: {wrongCredentials: true}});
+    console.log(`Blocked User-Credentials: ${result?.modifiedCount}`);
+    const blockedUser = await CREDENTIALS?.findOne({userID});
+    console.log("Blocked user: ", blockedUser);
 }

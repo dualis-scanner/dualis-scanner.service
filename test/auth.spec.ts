@@ -6,7 +6,7 @@ describe("Auth Tests", () => {
         it("Hash should have a length of 25", () => {
             const hash = generateHash();
             console.log(`Hash: ${hash}`);
-            assert.equal(hash.length, 25);
+            assert.equal(hash.length, 32);
         })
     });
 });

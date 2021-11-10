@@ -3,12 +3,14 @@ import * as crypto from "crypto";
 import { CREDENTIAL_SPLITTER } from "../scan";
 import Axios from "axios";
 import http from "http";
+import dotenv from "dotenv";
+dotenv.config();
 
 const axios = Axios;
 (async () => {
     const user = await registerUser();
-    const username = "doxblek";
-    const password = "someVerySafePassword123";
+    const username = process.env.DUALIS_USERNAME;
+    const password = process.env.DUALIS_PWD;
 
     const iv = Buffer.alloc(16);
     const key = Buffer.from(user.userHash);

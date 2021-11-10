@@ -1,0 +1,581 @@
+[
+    {
+        "courseID": "W3WI_SC304",
+        "credits": -1,
+        "grade": -1,
+        "name": "Wirtschaftspsychologie",
+        "passed": -1,
+        "exams": []
+    },
+    {
+        "courseID": "W3WI_SC306",
+        "credits": -1,
+        "grade": -1,
+        "name": "IT-Consulting II",
+        "passed": -1,
+        "exams": []
+    },
+    {
+        "courseID": "W3WI_103",
+        "credits": -1,
+        "grade": -1,
+        "name": "Integrationsseminar zu ausgewählten Themen der Wirtschaftsinformatik",
+        "passed": -1,
+        "exams": []
+    },
+    {
+        "courseID": "W3WI_106",
+        "credits": -1,
+        "grade": -1,
+        "name": "Geschäftsprozesse und deren Umsetzung",
+        "passed": -1,
+        "exams": []
+    },
+    {
+        "courseID": "W3WI_102",
+        "credits": -1,
+        "grade": -1,
+        "name": "Methoden der Wirtschaftsinformatik II",
+        "passed": -1,
+        "exams": []
+    },
+    {
+        "courseID": "W3WI_105",
+        "credits": -1,
+        "grade": -1,
+        "name": "Datenbanken",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "2021-04-22T22:00:00.000Z",
+                "examType": "Klausur oder Kombinierte Modulprüfung (Klausur und Assignment) (100%)",
+                "grade": -1,
+                "semester": "SoSe 2021"
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Datenbanken I (3)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Datenbanken II (2)",
+                "grade": -1,
+                "semester": " "
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_110",
+        "credits": -1,
+        "grade": -1,
+        "name": "Entwicklung verteilter Systeme",
+        "passed": -1,
+        "exams": []
+    },
+    {
+        "courseID": "W3WI_203",
+        "credits": -1,
+        "grade": -1,
+        "name": "Finanzierung und Rechnungswesen",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Investition und Finanzierung (1)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Bilanzierung (1)",
+                "grade": -1,
+                "semester": " "
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_505",
+        "credits": -1,
+        "grade": -1,
+        "name": "VWL",
+        "passed": -1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "2020-11-09T23:00:00.000Z",
+                "examType": "Assignment oder Kombinierte Modulprüfung (Klausur und Seminararbeit (ohne Präsentation)) (100%)",
+                "grade": 1,
+                "semester": "SoSe 2021"
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_602",
+        "credits": -1,
+        "grade": -1,
+        "name": "Mathematik II",
+        "passed": -1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "2021-04-29T22:00:00.000Z",
+                "examType": "Klausur oder Mündliche Prüfung (100%)",
+                "grade": -1,
+                "semester": "SoSe 2021"
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Statistik (1)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Operations Research (1)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "Gesamt 1",
+                "grade": -1,
+                "semester": " "
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_702",
+        "credits": -1,
+        "grade": -1,
+        "name": "Schlüsselqualifikationen II",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": null,
+                "examType": "Unbenoteter Leistungsnachweis (1%)",
+                "grade": -1,
+                "semester": "SoSe 2021"
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Interkulturelle Kompetenz (1)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Angewandtes W.A. - Projektskizze PA 2 (1)",
+                "grade": -1,
+                "semester": " "
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_802",
+        "credits": -1,
+        "grade": -1,
+        "name": "Praxismodul II",
+        "passed": -1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": null,
+                "examType": "Projektarbeit (2)",
+                "grade": -1,
+                "semester": "SoSe 2021"
+            },
+            {
+                "attempt": 1,
+                "date": null,
+                "examType": "Präsentation (1)",
+                "grade": -1,
+                "semester": "SoSe 2021"
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_SC302",
+        "credits": -1,
+        "grade": -1,
+        "name": "Sales & Consulting II",
+        "passed": -1,
+        "exams": []
+    },
+    {
+        "courseID": "W3WI_SC305",
+        "credits": -1,
+        "grade": -1,
+        "name": "IT-Consulting I",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "2021-04-25T22:00:00.000Z",
+                "examType": "Klausur oder Portfolio (100%)",
+                "grade": -1,
+                "semester": "SoSe 2021"
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  IT-Recht (3)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  IT-Management (5)",
+                "grade": -1,
+                "semester": " "
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_SC405",
+        "credits": -1,
+        "grade": -1,
+        "name": "Mobile Applikationen",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": null,
+                "examType": "Portfolio (100%)",
+                "grade": -1,
+                "semester": "SoSe 2021"
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_101",
+        "credits": -1,
+        "grade": -1,
+        "name": "Methoden der Wirtschaftsinformatik I",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "2020-05-28T22:00:00.000Z",
+                "examType": "Klausur oder Kombinierte Modulprüfung (Referat und Klausur) (100%)",
+                "grade": -1,
+                "semester": "SoSe 2020"
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Einführung in die Wirtschaftsinformatik (2)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Systemanalyse und -entwurf (3)",
+                "grade": -1,
+                "semester": " "
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_104",
+        "credits": -1,
+        "grade": -1,
+        "name": "Grundlegende Konzepte der IT",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "2020-05-24T22:00:00.000Z",
+                "examType": "Klausur (100%)",
+                "grade": -1,
+                "semester": "SoSe 2020"
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Grundlagen der IT (4)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Kommunikationssysteme (3)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Betriebssysteme (3)",
+                "grade": -1,
+                "semester": " "
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_109",
+        "credits": -1,
+        "grade": -1,
+        "name": "Programmierung II",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "2020-05-26T22:00:00.000Z",
+                "examType": "Klausur oder Portfolio (100%)",
+                "grade": -1,
+                "semester": "SoSe 2020"
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Fortgeschrittene Programmierung (1)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  AlgoDat (1)",
+                "grade": -1,
+                "semester": " "
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_202",
+        "credits": -1,
+        "grade": -1,
+        "name": "Grundlagen der Rechnungslegung",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "2020-05-28T22:00:00.000Z",
+                "examType": "Klausur (100%)",
+                "grade": -1,
+                "semester": "SoSe 2020"
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Technik der Finanzbuchführung (1)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Kosten- und Leistungsrechnung (1)",
+                "grade": -1,
+                "semester": " "
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_506",
+        "credits": -1,
+        "grade": -1,
+        "name": "Recht",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "2019-12-17T23:00:00.000Z",
+                "examType": "Assignment oder Kombinierte Modulprüfung (Klausur und Assignment) (100%)",
+                "grade": -1,
+                "semester": "SoSe 2020"
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Vertrags- und Schuldrecht (1)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Handels- und Gesellschaftsrecht (1)",
+                "grade": -1,
+                "semester": " "
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_601",
+        "credits": -1,
+        "grade": -1,
+        "name": "Mathematik I",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "2019-12-12T23:00:00.000Z",
+                "examType": "Klausur (50%)",
+                "grade": -1,
+                "semester": "WiSe 2019/20"
+            },
+            {
+                "attempt": 1,
+                "date": "2020-05-17T22:00:00.000Z",
+                "examType": "Klausur (50%)",
+                "grade": -1,
+                "semester": "SoSe 2020"
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_701",
+        "credits": -1,
+        "grade": -1,
+        "name": "Schlüsselqualifikationen I",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": null,
+                "examType": "Unbenoteter Leistungsnachweis (1%)",
+                "grade": -1,
+                "semester": "SoSe 2020"
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Präsentations- und Kommunikationskompetenz I u. II (1)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Grundlagen des wissenschaftlichen Arbeitens I u. II (1)",
+                "grade": -1,
+                "semester": " "
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_801",
+        "credits": -1,
+        "grade": -1,
+        "name": "Praxismodul I",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": null,
+                "examType": "Projektarbeit (1%)",
+                "grade": -1,
+                "semester": "SoSe 2020"
+            },
+            {
+                "attempt": 1,
+                "date": null,
+                "examType": "Bericht zum Ablauf und zur Reflexion des Praxismoduls (1%)",
+                "grade": -1,
+                "semester": "SoSe 2020"
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_SC301",
+        "credits": -1,
+        "grade": -1,
+        "name": "Sales & Consulting I",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": null,
+                "examType": "Portfolio (100%)",
+                "grade": -1,
+                "semester": "SoSe 2020"
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_108",
+        "credits": -1,
+        "grade": -1,
+        "name": "Programmierung I",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "2019-12-19T23:00:00.000Z",
+                "examType": "Klausur (100%)",
+                "grade": -1,
+                "semester": "WiSe 2019/20"
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_201",
+        "credits": -1,
+        "grade": -1,
+        "name": "Grundlagen der Betriebswirtschaftslehre",
+        "passed": 1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "2019-12-15T23:00:00.000Z",
+                "examType": "Klausur (100%)",
+                "grade": -1,
+                "semester": "WiSe 2019/20"
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Einführung in die BWL (3)",
+                "grade": -1,
+                "semester": " "
+            },
+            {
+                "attempt": 1,
+                "date": "1970-01-01T00:00:00.000Z",
+                "examType": "  Marketing (2)",
+                "grade": -1,
+                "semester": " "
+            }
+        ]
+    },
+    {
+        "courseID": "W3WI_601",
+        "credits": -1,
+        "grade": -1,
+        "name": "Mathematik I",
+        "passed": -1,
+        "exams": [
+            {
+                "attempt": 1,
+                "date": "2019-12-12T23:00:00.000Z",
+                "examType": "Klausur (50%)",
+                "grade": -1,
+                "semester": "WiSe 2019/20"
+            },
+            {
+                "attempt": 1,
+                "date": "2020-05-17T22:00:00.000Z",
+                "examType": "Klausur (50%)",
+                "grade": -1,
+                "semester": "SoSe 2020"
+            }
+        ]
+    }
+]

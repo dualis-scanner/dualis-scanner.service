@@ -1,7 +1,11 @@
 import { CourseCache, CourseResult, UserHash } from "./db/types";
 import * as crypto from "crypto";
-import { exec } from "child_process";
+import util from "util";
+const exec = util.promisify(require('child_process').exec);
 import dbClient from "./db/dbClient";
+import fs from "fs";
+import { mapToTypeScriptStructure } from "./db/mapper";
+import { determineDeltas } from "./delta";
 
 export const CREDENTIAL_SPLITTER = "_+*CRED*+_";
 const CACHE_EXPIRE_TIME = 15;
@@ -14,12 +18,19 @@ export async function scan(userData: UserHash, res: any): Promise<void> {
         res.status(400).send("Given User does not exist.");
         return;
     }
+    if (!!authRecord.wrongCredentials) {
+        res.status(403).json({
+            code: 403,
+            message: "The user credentials were wrong. Please update them."
+        });
+        return;
+    }
 
     // Check if cache is still valid
     const cachedData = await database.getCourseCacheFromUser(userData.userID);
-    // const cachedData = cacheMockTable.find(record => record.userID === userData.userID);
     if (!!cachedData && isCacheValid(cachedData)) {
         res.status(200).send({
+            // @ts-ignore
             data: cachedData.courses
         });
         return;
@@ -37,17 +48,48 @@ export async function scan(userData: UserHash, res: any): Promise<void> {
     const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
     let decryptedCredentials = decipher.update(encryptedCredentials, "base64", "utf8");
     decryptedCredentials += decipher.final("utf8");
-    console.log(`Finished decryption: ${decryptedCredentials}`);
-
+    
     const [ username, password, ] = decryptedCredentials.split(CREDENTIAL_SPLITTER);
-    // TODO: Run actual worker script
-    exec(`dualis-scanner-worker ${process.env.DUALIS_USERNAME} ${process.env.DUALIS_PWD} --driver=${process.env.CHROMEDRIVER_PATH}/chromedriver --dry`, (err, stdout, stderr) => {
-        console.log(stdout, stderr);
-        console.log("Finished scanning");
-    });
+    console.log(`Finished decryption: ${username} : ${password.replace(/[\w\W]/g, "*")}`);
+    
+    let execRes;
+    try {
+        execRes = await exec(`dualis-scanner-worker ${username} ${password} --driver=${process.env.CHROMEDRIVER_PATH}/chromedriver --logDir ./logs` );
+    }
+    catch (e) {
+        execRes = {stdout: "", stderr: JSON.parse((e as any).stderr)}
+    }
+    const { stdout, stderr: { exitCode } } = execRes;
 
-    // Mock
-    const results: CourseResult[] = [];
+    switch (exitCode) {
+        case -2: { // Crash
+            res.status(500).json({
+                code: 500,
+                message: "Updates could not be resolved due to internal server issues."
+            });
+            return;
+        }
+        case -1: { // Invalid Login
+            res.status(403).json({
+                code: 403,
+                message: "The user credentials were wrong. Please update them."
+            });
+            await database.setWrongCredentialsFlag(userData.userID);
+            return;
+        }
+    };
+
+    const resultJSON = JSON.parse(stdout);
+    console.log(resultJSON);
+    
+    const results: CourseCache | null = mapToTypeScriptStructure(userData.userID, resultJSON);
+    if (!results) {
+        res.status(200).send("No data");
+        return;
+    }
+    // fs.writeFileSync("./result.json", JSON.stringify(results.courses));
+    const success = await database.setCourseCacheFromUser(results);
+    console.log(`Cache was updated: ${success}`);
     if (!cachedData) {
         res.status(200).send({
             data: results,
@@ -66,16 +108,4 @@ export async function scan(userData: UserHash, res: any): Promise<void> {
 function isCacheValid(cacheRecord: CourseCache): boolean {
     const delta = Date.now() - cacheRecord.lastModifiedAt.valueOf();
     return delta < CACHE_EXPIRE_TIME * 60 * 1000; // Mins to millis
-}
-
-export function determineDeltas(results: CourseResult[], cache: CourseCache): CourseResult[] | undefined {
-    const deltas: CourseResult[] = [];
-
-    for(const item of results) {
-        if (!cache.courses.find(record => record == item)) {
-            deltas.push(item);
-        }
-    }
-
-    return deltas.length > 0 ? deltas : undefined;
 }

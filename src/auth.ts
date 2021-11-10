@@ -15,6 +15,7 @@ export function generateHash(): string {
 }
 
 export async function generateUserID(): Promise<string> {
+    // TODO: change back to uuid when deltas work
     const database = await dbClient();
     let uuid = randomUUID();
     
@@ -23,6 +24,7 @@ export async function generateUserID(): Promise<string> {
     }
 
     return uuid;
+    // return "testID";
 }
 
 export async function registerUser(): Promise<UserHash> {
