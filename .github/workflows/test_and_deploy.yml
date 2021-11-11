@@ -34,6 +34,6 @@ jobs:
             cd dualis-scanner.service
             git pull
             tmux new -s service_tmux_session -d
-            tmux send-keys -t service_tmux_session npm ci
-            tmux send-keys -t service_tmux_session npm run build
-            tmux send-keys -t service_tmux_session npm run start
+            tmux send-keys -t service_tmux_session npm ci ENTER
+            tmux send-keys -t service_tmux_session npm run build ENTER
+            tmux send-keys -t service_tmux_session npm run start ENTER
