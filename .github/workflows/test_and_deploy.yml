@@ -1,0 +1,26 @@
+name: Build and deploy
+
+on: [pull_request, push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - name: Install
+        run: |
+          npm ci
+          npm run build
+      - name: Run tests
+        run: npm test
+      #- name: Deploy
+      #  if: ${{ github.event_name == 'push' }}
+      #  uses: appleboy/ssh-action@master
+      #  with:
+      #    host: ${{ secrets.HOST }}
+      #    username: ${{ secrets.HOST_USERNAME }}
+      #    key: ${{ secrets.HOST_KEY }}
+      #    script: cd dualis-scanner.worker && git pull && pip install . --upgrade --force-reinstall --no-warn-script-location
