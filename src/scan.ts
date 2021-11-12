@@ -54,7 +54,7 @@ export async function scan(userData: UserHash, res: any): Promise<void> {
     
     let execRes;
     try {
-        execRes = await exec(`dualis-scanner-worker ${username} ${password} --driver=${process.env.CHROMEDRIVER_PATH}/chromedriver --logDir ./logs` );
+        execRes = await exec(`dualis-scanner-worker ${username} ${password} --driver=${process.env.CHROMEDRIVER_PATH}/chromedriver --logDir ./logs/${userData.userID}` );
     }
     catch (e) {
         execRes = {stdout: "", stderr: JSON.parse((e as any).stderr)}
