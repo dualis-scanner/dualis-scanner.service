@@ -12,7 +12,7 @@ let CREDENTIALS: Collection<AuthRecord> | null = null;
 
 export default async function dbClient() {
     if (!client || !database || !COURSES || !CREDENTIALS) {
-        console.log(dbURL());
+        console.log("Connecting to db at ", dbURL());
         client = new MongoClient(dbURL());
         await client.connect();
         database = client.db(process.env.DB_NAME);
@@ -89,7 +89,7 @@ const setWrongCredentialsFlag = async (userID: string) => {
     const result = await CREDENTIALS?.updateOne({userID}, {$set: {wrongCredentials: true}});
     console.log(`Blocked User-Credentials: ${result?.modifiedCount}`);
     const blockedUser = await CREDENTIALS?.findOne({userID});
-    console.log("Blocked user: ", blockedUser);
+    console.log("Blocked user: ", userID);
 }
 
 const hasCredentials = async (userID: string) => {

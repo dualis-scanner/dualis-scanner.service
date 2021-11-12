@@ -25,7 +25,6 @@ app.get("/", (req, res) => res.send("Welcome in the Dualis-Scanner-Backend!"));
 app.post("/register", async (req, res) => {
     console.log("Registration process started.");
     const authHash = await registerUser();
-    console.log(authHash);
     res.status(201).json(authHash);
 });
 

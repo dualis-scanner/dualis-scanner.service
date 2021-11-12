@@ -59,7 +59,6 @@ export async function scan(userData: UserHash, res: any): Promise<void> {
         execRes = await exec(`dualis-scanner-worker ${username} ${password} --driver=${process.env.CHROMEDRIVER_PATH}/chromedriver --logDir ./logs/${userData.userID} --base64` );
     }
     catch (e) {
-        console.log(e as any);
         try {
             execRes = {stdout: "", stderr: JSON.parse((e as any).stderr)};
         }
@@ -94,7 +93,6 @@ export async function scan(userData: UserHash, res: any): Promise<void> {
     };
 
     const resultJSON = JSON.parse(stdout);
-    console.log(resultJSON);
     
     const results: CourseCache | null = mapToTypeScriptStructure(userData.userID, resultJSON);
     if (!results) {
