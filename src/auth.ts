@@ -50,3 +50,8 @@ export async function updateUserCredentials(userID: string, encryptedCredentials
     await database.updateUserCredentials(userID, encryptedCredentials);
     res.status(200).send("");
 }
+
+export async function userHasCredentials(userID: string): Promise<boolean> {
+    const database = await dbClient();
+    return await database.hasCredentials(userID);
+}

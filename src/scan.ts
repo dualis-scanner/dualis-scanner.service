@@ -31,7 +31,9 @@ export async function scan(userData: UserHash, res: any): Promise<void> {
     if (!!cachedData && isCacheValid(cachedData)) {
         res.status(200).send({
             // @ts-ignore
-            data: cachedData.courses
+            data: cachedData.courses,
+            deltas: [],
+            lastModified: cachedData.lastModifiedAt
         });
         return;
     }
@@ -57,7 +59,11 @@ export async function scan(userData: UserHash, res: any): Promise<void> {
         execRes = await exec(`dualis-scanner-worker ${username} ${password} --driver=${process.env.CHROMEDRIVER_PATH}/chromedriver --logDir ./logs/${userData.userID} --base64` );
     }
     catch (e) {
-        execRes = {stdout: "", stderr: JSON.parse((e as any).stderr)}
+        console.log(e as any);
+        execRes = {stdout: "", stderr: JSON.parse((e as any).stderr ?? "{}")}
+        if (!(e as any).stderr) {
+            console.log("No standard error returned.", (e as any).stderr);
+        }
     }
     const { stdout, stderr: { exitCode } } = execRes;
 
@@ -92,16 +98,18 @@ export async function scan(userData: UserHash, res: any): Promise<void> {
     console.log(`Cache was updated: ${success}`);
     if (!cachedData) {
         res.status(200).send({
-            data: results,
-            deltas: results
+            data: results.courses,
+            deltas: results.courses,
+            lastModified: results.lastModifiedAt
         });
         return;
     }
 
     const deltas = determineDeltas(results, cachedData);
     res.status(200).send({
-        data: results,
-        deltas
+        data: results.courses,
+        deltas,
+        lastModifiedAt: results.lastModifiedAt
     });
 }
 
