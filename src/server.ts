@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, updateUserCredentials } from "./auth";
+import { registerUser, updateUserCredentials, userHasCredentials } from "./auth";
 import { UserHash } from "./db/types";
 import { scan } from "./scan";
 import dotenv from "dotenv";
@@ -32,11 +32,18 @@ app.post("/register", async (req, res) => {
 app.put("/updateCredentials", async (req, res) => {
     const { userID, encryptedCredentials } = (req as any).body;
     await updateUserCredentials(userID, encryptedCredentials, res);
+    console.log("Credentials were updated", res.statusCode);
 });
 
-app.get("/updateFromDualis", async (req, res) => {
+app.post("/updateFromDualis", async (req, res) => {
     const userData: UserHash = req.body;
     await scan(userData, res);
+});
+
+app.get("/hasCredentials(:userID)", async (req, res) => {
+    const userIDWithParantheses = req.params.userID;
+    const userID = userIDWithParantheses.substr(1, userIDWithParantheses.length-2);
+    res.send({hasCredentials: await userHasCredentials(userID)});
 })
 
 app.listen(PORT, () => {

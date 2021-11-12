@@ -29,7 +29,8 @@ export default async function dbClient() {
         updateUserCredentials,
         getUsers,
         findNotEmptyCaches,
-        setWrongCredentialsFlag
+        setWrongCredentialsFlag,
+        hasCredentials
     };
 }
 
@@ -89,4 +90,9 @@ const setWrongCredentialsFlag = async (userID: string) => {
     console.log(`Blocked User-Credentials: ${result?.modifiedCount}`);
     const blockedUser = await CREDENTIALS?.findOne({userID});
     console.log("Blocked user: ", blockedUser);
+}
+
+const hasCredentials = async (userID: string) => {
+    const result = await CREDENTIALS?.findOne({userID});
+    return !!result && !!result.encryptedCredentials && !result.wrongCredentials;
 }
