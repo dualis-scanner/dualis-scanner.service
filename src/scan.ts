@@ -59,6 +59,7 @@ export async function scan(userData: UserHash, res: any): Promise<void> {
         execRes = await exec(`dualis-scanner-worker ${username} ${password} --driver=${process.env.CHROMEDRIVER_PATH}/chromedriver --logDir ./logs/${userData.userID}` );
     }
     catch (e) {
+        console.log(e as any);
         execRes = {stdout: "", stderr: JSON.parse((e as any).stderr ?? "{}")}
         if (!(e as any).stderr) {
             console.log("No standard error returned.", (e as any).stderr);
