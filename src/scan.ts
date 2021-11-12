@@ -49,12 +49,12 @@ export async function scan(userData: UserHash, res: any): Promise<void> {
     let decryptedCredentials = decipher.update(encryptedCredentials, "base64", "utf8");
     decryptedCredentials += decipher.final("utf8");
     
-    const [ username, password, ] = decryptedCredentials.split(CREDENTIAL_SPLITTER);
-    console.log(`Finished decryption: ${username} : ${password.replace(/[\w\W]/g, "*")}`);
+    const [ username, password, ] = decryptedCredentials.split(CREDENTIAL_SPLITTER).map(el => Buffer.from(el).toString("base64"));
+    console.log(`Finished decryption.`);
     
     let execRes;
     try {
-        execRes = await exec(`dualis-scanner-worker ${username} ${password} --driver=${process.env.CHROMEDRIVER_PATH}/chromedriver --logDir ./logs/${userData.userID}` );
+        execRes = await exec(`dualis-scanner-worker ${username} ${password} --driver=${process.env.CHROMEDRIVER_PATH}/chromedriver --logDir ./logs/${userData.userID} --base64` );
     }
     catch (e) {
         execRes = {stdout: "", stderr: JSON.parse((e as any).stderr)}
